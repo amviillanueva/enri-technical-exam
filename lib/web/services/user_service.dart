@@ -22,8 +22,6 @@ class UserServiceImpl implements UserService {
 
   @override
   Future<List<UserContract>> getUsers() async {
-    // TODO: Implement getUsers, use endpoints from `ApiEndpoints` class
-
     return Future<List<UserContract>>.delayed(const Duration(seconds: 3),
         () async {
       final http.Response response = await httpClient.get(
