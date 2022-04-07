@@ -24,8 +24,31 @@ class UserDetailsView extends StatelessWidget
               ? const Center(
                   child: Text('No user selected'),
                 )
-              : Text(
-                  user.name,
+              : Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 24,
+                  ),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(
+                          user.imageUrl,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        user.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
                 );
         },
       ),
