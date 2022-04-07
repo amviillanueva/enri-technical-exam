@@ -35,7 +35,7 @@ class UserServiceImpl implements UserService {
               (dynamic shipment) =>
               UserContract.fromJson(shipment as Map<String, dynamic>),
         ),
-      );;
+      );
     });
   }
 }
