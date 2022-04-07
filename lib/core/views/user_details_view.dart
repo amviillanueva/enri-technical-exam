@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tech_exam/common/route_names.dart';
 import 'package:flutter_tech_exam/core/view_models/user_details_view_model.dart';
 import 'package:flutter_tech_exam/core/views/base/view.dart';
+import 'package:flutter_tech_exam/domain/entities/user_entity.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: Widget)
 @Named(RouteNames.userDetails)
-class UserDetailsView extends StatelessWidget with ViewMixin<UserDetailsViewModel> {
+class UserDetailsView extends StatelessWidget
+    with ViewMixin<UserDetailsViewModel> {
   UserDetailsView() : super(key: const Key(RouteNames.userDetails));
 
   @override
@@ -14,6 +16,18 @@ class UserDetailsView extends StatelessWidget with ViewMixin<UserDetailsViewMode
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Details'),
+      ),
+      body: ValueListenableBuilder<UserEntity?>(
+        valueListenable: viewModel.user,
+        builder: (context, user, child) {
+          return user == null
+              ? const Center(
+                  child: Text('No user selected'),
+                )
+              : Text(
+                  user.name,
+                );
+        },
       ),
     );
   }

@@ -9,7 +9,8 @@ class UserDetailsViewModel extends ViewModel<UserEntity> {
 
   @override
   Future<void> onInitialize([UserEntity? parameter]) {
-    // TODO: implement onInitialize
+    user.value = parameter;
+
     return super.onInitialize(parameter);
   }
 }

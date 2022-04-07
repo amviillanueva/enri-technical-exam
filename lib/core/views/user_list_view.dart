@@ -29,8 +29,32 @@ class UserListView extends StatelessWidget with ViewMixin<UserListViewModel> {
                         child: Text('No users'),
                       )
                     // TODO: Show list of users and navigate to `UserDetailsView` when tapped
-                    : Center(
-                        child: Text('There are ${users.length} users'),
+                    : Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(8),
+                          itemCount: users.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: (){
+                                viewModel.onNavigateToUserDetails(users[index]);
+                                // NavigationService
+                                // onNavigateToUserDetails
+                                // UserListViewModelNavigationService.push(RouteNames.userDetails);
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 24,
+                                  horizontal: 6,
+                                ),
+                                color: Colors.transparent,
+                                child: Text(
+                                  users[index].name,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       );
               },
             ),
