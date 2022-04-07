@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tech_exam/common/route_names.dart';
 import 'package:flutter_tech_exam/core/services/dialog_service.dart';
@@ -27,11 +29,14 @@ class UserListViewModel extends ViewModel {
   }
 
   Future<void> _tryGetUsers() async {
-    // TODO: Check if connected to internet.
+    try {
+      _dialogService.showLoading();
 
-    _dialogService.showLoading();
-
-    users.value = await _userManager.getUsers();
+      users.value = await _userManager.getUsers();
+    } on SocketException {
+      await _dialogService.dismiss();
+      await _dialogService.alert('No Internet Connection');
+    }
 
     await _dialogService.dismiss();
   }
