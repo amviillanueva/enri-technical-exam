@@ -18,8 +18,16 @@ class UserManagerImpl implements UserManager {
   Future<List<UserEntity>> getUsers() async {
     final contracts = await _userService.getUsers();
 
-    // TODO: Remove duplicate entries from `contracts`
+    final List<UserEntity> users = contracts.map(_userMapper.fromContract).toList();
+    final List<UserEntity> uniqueUsers = [];
 
-    return contracts.map(_userMapper.fromContract).toList();
+    users.asMap().forEach((index, user) {
+      final int index = uniqueUsers.indexWhere((e) => e.id == user.id);
+      if (index == -1) {
+        uniqueUsers.add(user);
+      }
+    });
+
+    return uniqueUsers;
   }
 }
